@@ -1,3 +1,7 @@
 {
-    "dotnet.defaultSolution": "FourthPharos.sln"
+    "dotnet.defaultSolution": "FourthPharos.sln",
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+        "*.razor": "${basename}.razor,${basename}.razor.css,${basename}.razor.cs,${basename}.razor.scss"
+      }
 }

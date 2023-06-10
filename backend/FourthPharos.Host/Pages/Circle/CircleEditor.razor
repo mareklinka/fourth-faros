@@ -1,5 +1,5 @@
-@page "/circle/create"
-@page "/circle/edit/{Id:guid}"
+@page "/circles/create"
+@page "/circles/edit/{Id:guid}"
 
 @using FourthPharos.Host.Services
 
@@ -8,28 +8,51 @@
 
 <PageTitle>(ALPHA) Fourth Pharos - Edit Circle</PageTitle>
 
-<div>
-    <div>Basic information</div>
-    <div style="display: flex;">
-        <RadzenText>Circle of: </RadzenText>
-        <RadzenTextBox @bind-Value=circleName Change=@(args => SetName()) class=@(IsCircleNameInvalid ? "invalid" : "") />
-    </div>
-    <div style="display: flex;">
-        <RadzenText>Chapter House Location: </RadzenText>
-        <RadzenTextBox @bind-Value=circleLocation Change=@(args => SetLocation()) />
-    </div>
-</div>
-
-<div>
-    <div>Abilities</div>
-    @for (var r = 1; r <= Model.Rank; ++r)
-    {
-        var rank = r;
-        <div>
-            <span>Rank @r:</span>
-            <RadzenDropDown Value="@GetAbilityAtRank(rank)" Data=@GetAvailableAbilities() TextProperty="Name" Change="@(args => SetAbility(rank, ((AbilityModel)args).Code))" TValue="AbilityModel"></RadzenDropDown>
+<div class="page">
+    <div class="page-title">Circle of @CircleName</div>
+    <div class="section-title">Basic information</div>
+    <div class="form-grid">
+        <div class="grid-row">
+            <span>Circle of: </span>
+            <input @bind="CircleName" class="@(IsCircleNameInvalid ? "invalid" : "")"/>
         </div>
-    }
+        <div class="grid-row">
+            <span>Chapter House Location: </span>
+            <input @bind="CircleLocation" />
+        </div>
+    </div>
+
+    <div class="section-title">Abilities</div>
+    <div class="form-grid">
+        @for (var r = 1; r <= Model.Rank; ++r)
+        {
+            var rank = r;
+            <div class="grid-row">
+                <span>Rank @r:</span>
+                @{
+                    var selectedAbility = GetAbilityAtRank(rank);
+                }
+                <select @onchange="@((ChangeEventArgs e) => SetAbility(rank, e?.Value?.ToString()))" value=@(selectedAbility?.Code)>
+                    @{
+                        if (selectedAbility != null)
+                        {
+                            <option></option>
+                            <option value="@selectedAbility.Code" selected="true">@abilities.FirstOrDefault(_ => _.Code == selectedAbility.Code)?.Name</option>
+                        }
+                        else
+                        {
+                            <option selected="true"></option>
+                        }
+
+                        foreach (var ability in GetAvailableAbilities())
+                        {
+                            <option value="@ability.Code" @key=ability.Code>@ability.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+        }
+    </div>
 </div>
 
 

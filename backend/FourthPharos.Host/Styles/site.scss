@@ -1,7 +1,70 @@
+@import '_colors.scss';
+@import '_units.scss';
+
+@import url('https://fonts.googleapis.com/css?family=Crimson+Text:400,600');
+
 body {
-    font-family: 'Roboto';
+    font-family: 'Crimson Text';
+    font-weight: 400;
+    font-size: 20px;
     padding: 0;
     margin: 0;
+    background-color: $steel-light;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.section-title {
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+.page {
+  display: grid;
+  grid-template: 'header' 'body';
+  background-color: $steel-very-light;
+  width: 100%;
+  width: 900px;
+  padding: $token-size-1;
+  border: $copper-medium solid 0.0625rem;
+
+  .page-title {
+    font-size: 2rem;
+    font-weight: 600;
+    grid-area: header;
+    margin-bottom: 2rem;
+  }
+}
+
+.btn {
+  color: $steel-dark;
+  font-weight: 600;
+  padding: $token-size-0-5 $token-size-1;
+  border-width: 2px;
+  border-style: solid;
+  cursor: pointer;
+  border-radius: $token-size-0-5;
+
+  &.btn-primary {
+    background-color: $emerald-medium;
+    border-color: $emerald-dark;
+
+    &:hover {
+      background-color: $emerald-light;
+    }
+  }
+
+  &.btn-secondary {
+    border-color: $copper-dark;
+    background-color: $copper-medium;
+
+    &:hover {
+      background-color: $copper-light;
+    }
+  }
 }
 
 #blazor-error-ui {

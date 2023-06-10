@@ -17,15 +17,22 @@ public partial class CircleEditor
 
     private Guid userId = Guid.Empty;
 
-    private string? circleName;
-    private bool IsCircleNameInvalid => string.IsNullOrWhiteSpace(circleName);
+    private string? CircleName
+    {
+        get => Model.Circle.GetFeature<Domain.CandelaObscuraCircle.Models.Circle, CircleNameFeature>().Name;
+        set => Model.Circle.SetName(value);
+    }
 
-    private string? circleLocation;
-    private bool IsCircleLocationInvalid => string.IsNullOrWhiteSpace(circleLocation);
+    private string? CircleLocation
+    {
+        get => Model.Circle.GetFeature<Domain.CandelaObscuraCircle.Models.Circle, CircleLocationFeature>().Location;
+        set => Model.Circle.SetLocation(value);
+    }
+
+    private bool IsCircleNameInvalid => string.IsNullOrWhiteSpace(CircleName);
 
     private readonly IReadOnlyCollection<AbilityModel> abilities = new List<AbilityModel>
     {
-        new AbilityModel(null, string.Empty),
         new AbilityModel(CircleAbility.StaminaTraining.Code, "Stamina Training"),
         new AbilityModel(CircleAbility.NobodyLeftBehind.Code, "Nobody Left Behind"),
         new AbilityModel(CircleAbility.ForgedInFire.Code, "Forged in Fire"),
@@ -44,7 +51,6 @@ public partial class CircleEditor
         if (Id is null)
         {
             Model = circleService.CreateCircle(null, userId);
-            Model.Circle.AddIllumination(100);
         }
         else
         {
@@ -53,34 +59,12 @@ public partial class CircleEditor
             if (circle is not null)
             {
                 Model = circle;
-                circleName = circle.Name;
-                circleLocation = circle.Location;
             }
         }
     }
 
-    private void SetName()
-    {
-        if (IsCircleNameInvalid)
-        {
-            return;
-        }
-
-        Model.Circle.SetName(circleName);
-    }
-
-    private void SetLocation()
-    {
-        if (IsCircleLocationInvalid)
-        {
-            return;
-        }
-
-        Model.Circle.SetLocation(circleLocation);
-    }
-
-    private void SetAbility(int rank, string? ability) => Model.Circle.SelectAbility(ability, rank);
-
+    private void SetAbility(int rank, string? abilityCode) =>
+        Model.Circle.SelectAbility(string.IsNullOrWhiteSpace(abilityCode) ? null : abilityCode, rank);
 
     private IEnumerable<AbilityModel> GetAvailableAbilities() =>
         abilities.Where(a => !Model

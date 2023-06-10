@@ -2,26 +2,19 @@
 @namespace FourthPharos.Host.Shared
 
 @inject AuthenticationStateProvider authProvider
+@inject NavigationManager navigator
 
 <PageTitle>(ALPHA) Fourth Pharos</PageTitle>
 
-<RadzenLayout>
-    <RadzenHeader>
-        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0">
-            <RadzenSidebarToggle Click="@(() => isSidebarExpanded = !isSidebarExpanded)"></RadzenSidebarToggle>
-            <RadzenLabel Text="Fourth Pharos" style="flex-grow: 1"></RadzenLabel>
-            <div>
-                <LoginDisplay></LoginDisplay>
-            </div>
-        </RadzenStack>
-    </RadzenHeader>
-    @if(isAuthenticated == true)
-    {
-        <RadzenSidebar @bind-Expanded="@isSidebarExpanded">
-            <NavMenu></NavMenu>
-        </RadzenSidebar>
-    }
-    <RadzenBody>
-        @Body
-    </RadzenBody>
-</RadzenLayout>
+<div class="main-layout">
+    <div class="app-title-bar">
+        <div class="app-menu">
+            <a @onclick=@(() => navigator.NavigateTo(Routes.MyCircles))>My Circles</a>
+            <a @onclick=@(() => navigator.NavigateTo(Routes.MyCharacters))>My Characters</a>
+        </div>
+        <LoginDisplay></LoginDisplay>
+    </div>
+    <div class="app-body">
+         @Body
+    </div>
+</div>

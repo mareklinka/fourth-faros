@@ -3,9 +3,11 @@
 
 @inject NavigationManager navigator
 
-<RadzenCard class="@Classes" style="@Styles">
-    <RadzenText>Circle Name: @Name</RadzenText>
-    <RadzenText>Circle Location: @Location</RadzenText>
-    <RadzenText>Members: @Members</RadzenText>
-    <RadzenButton Click=@(() => navigator.NavigateTo($"/circle/edit/{Id}"))>Edit</RadzenButton>
-</RadzenCard>
+<div class="circle-card @Classes" style="@Styles" >
+    <a class="circle-name" @onclick=@(() => navigator.NavigateTo(Routes.EditCircle(Id)))>Circle of @(Name ?? "unknown")</a>
+    <div class="circle-location">@Location</div>
+    <div class="circle-actions">
+        <button type="button" @onclick=@(() => navigator.NavigateTo(Routes.EditCircle(Id))) class="btn btn-primary">View</button>
+        <button type="button" @onclick=@(() => navigator.NavigateTo(Routes.EditCircle(Id))) class="btn btn-secondary">Edit</button>
+    </div>
+</div>

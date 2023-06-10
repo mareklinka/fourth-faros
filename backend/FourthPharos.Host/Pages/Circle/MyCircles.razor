@@ -1,4 +1,4 @@
-@page "/my-circles"
+@page "/circles/my"
 @namespace FourthPharos.Host.Pages.Circle
 
 @using FourthPharos.Host.Services
@@ -9,15 +9,17 @@
 
 <PageTitle>(ALPHA) Fourth Pharos - My Circles</PageTitle>
 
-<div class="component-layout">
-    <div class="grid-header">
-        <span class="header">My Circles</span>
-        <div class="new-circle"><RadzenButton Icon="add" Text="New circle" Click="@(() => navigator.NavigateTo("/circle/create"))"></RadzenButton></div>
+<div class="page">
+    <div class="page-title">
+        <div>My Circles</div>
+        <div class="new-circle">
+            <button type="button" @onclick=@(() => navigator.NavigateTo(Routes.NewCircle))>New circle</button>
+        </div>
     </div>
-    <RadzenStack class="grid-body" Orientation="Orientation.Horizontal" AlignItems="AlignItems.Start" Wrap="FlexWrap.Wrap">
+    <div class="circle-list">
         @foreach (var c in circleService.GetCircles())
         {
-            <CircleCard @key="@c.Id" Id="@c.Id" Name="@c.Name" Members="@c.Members" Location="@c.Location"></CircleCard>
+            <CircleCard @key="@c.Id" Id="@c.Id" Name="@c.Name" Members="@c.Members" Location="@c.Location" class="circle-card-layout"></CircleCard>
         }
-    </RadzenStack>
+    </div>
 </div>

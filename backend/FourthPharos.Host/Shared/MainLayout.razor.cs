@@ -3,7 +3,6 @@ namespace FourthPharos.Host.Shared;
 public partial class MainLayout
 {
     private bool isAuthenticated;
-    private bool isSidebarExpanded = true;
 
     protected override async Task OnInitializedAsync()
     {

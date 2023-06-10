@@ -1,0 +1,14 @@
+.form-grid {
+    display: flex;
+    flex-direction: column;
+
+    .grid-row {
+        height: 3rem;
+        display: flex;
+        align-items: center;
+
+        :first-child {
+            flex-grow: 1;
+        }
+    }
+}
