@@ -1,0 +1,133 @@
+@import "../../Styles/_colors.scss";
+@import "../../Styles/_units.scss";
+
+.page {
+  width: calc(100vw - 6rem);
+}
+
+.circle-sheet {
+  background-color: white;
+  display: grid;
+  grid-template: "header header" "left-column right-column";
+  grid-template-rows: auto auto;
+  grid-template-columns: 40% 60%;
+
+  .sheet-header {
+    font-size: $token-size-1-5;
+    grid-area: header;
+    margin-bottom: $token-size-1;
+
+    display: grid;
+    grid-template: "logo members" "logo tone-feel";
+
+    .header-logo {
+      grid-area: "logo";
+    }
+
+    .header-members {
+      grid-area: members;
+    }
+
+    .header-tone-feel {
+      grid-area: tone-feel;
+    }
+  }
+
+  .sheet-left {
+    font-size: 1.2rem;
+    grid-area: left-column;
+    border: $steel-dark outset 0.125rem;
+    border-radius: $token-size-0-5;
+    margin-right: $token-size-0-5;
+    display: flex;
+    flex-direction: column;
+    gap: $token-size-0-5;
+    padding: $token-size-1;
+
+    .circle-name-location {
+      font-size: $token-size-1-5;
+      text-transform: capitalize;
+
+      &.circle-name {
+        text-decoration: underline;
+        font-weight: 600;
+        font-size: 1.5em;
+      }
+    }
+  }
+
+  .sheet-right {
+    font-size: 1.2rem;
+    grid-area: right-column;
+    border: $steel-dark outset 0.125rem;
+    border-radius: 0.5rem;
+    margin-left: $token-size-0-5;
+    padding: $token-size-1;
+  }
+}
+
+.section {
+  margin-bottom: $token-size-1;
+
+  .heading {
+    text-transform: uppercase;
+    font-size: $token-size-1-5;
+  }
+
+  .note {
+    font-size: 0.8em;
+    font-style: italic;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.ability-list {
+  padding-left: 2rem;
+
+  li {
+    font-family: unset;
+    margin-left: -$token-size-0-5;
+    padding-left: $token-size-0-5;
+    margin-bottom: $token-size-1;
+
+    .ability-name {
+      font-weight: 600;
+    }
+
+    &::marker {
+      font-family: "Material Symbols Sharp";
+      content: "\e836";
+    }
+
+    &.selected::marker {
+      font-family: "Material Symbols Sharp";
+      content: "\e837";
+    }
+  }
+}
+
+.stamina-counter {
+  display: flex;
+  margin-top: $token-size-0-5;
+
+  .stamina-dice-label {
+    flex-grow: 1;
+    font-weight: 600;
+  }
+
+  span.stamina-die {
+    margin-left: $token-size-0-5;
+    &.available::after {
+      font-family: "Material Symbols Sharp";
+      content: "\e837";
+    }
+
+    &.spent::after {
+      font-family: "Material Symbols Sharp";
+      content: "\e836";
+    }
+  }
+}

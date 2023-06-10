@@ -7,5 +7,7 @@ public static class Routes
     public const string NewCircle = "/circles/create";
     public const string MyCharacters = "/my-characters";
 
-    public static string EditCircle(Guid id) => $"/circles/edit/{id}";
+    public static string CircleEditor(Guid id) => $"/circles/edit/{id}";
+
+    public static string CircleSheet(Guid id) => $"/circles/sheet/{id}";
 }

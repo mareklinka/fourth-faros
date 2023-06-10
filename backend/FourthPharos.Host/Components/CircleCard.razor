@@ -4,10 +4,10 @@
 @inject NavigationManager navigator
 
 <div class="circle-card @Classes" style="@Styles" >
-    <a class="circle-name" @onclick=@(() => navigator.NavigateTo(Routes.EditCircle(Id)))>Circle of @(Name ?? "unknown")</a>
+    <a class="circle-name" @onclick=@(() => navigator.NavigateTo(Routes.CircleSheet(Id)))>Circle of @(Name ?? "unknown")</a>
     <div class="circle-location">@Location</div>
     <div class="circle-actions">
-        <button type="button" @onclick=@(() => navigator.NavigateTo(Routes.EditCircle(Id))) class="btn btn-primary">View</button>
-        <button type="button" @onclick=@(() => navigator.NavigateTo(Routes.EditCircle(Id))) class="btn btn-secondary">Edit</button>
+        <button type="button" @onclick=@(() => navigator.NavigateTo(Routes.CircleSheet(Id))) class="btn btn-primary">View</button>
+        <button type="button" @onclick=@(() => navigator.NavigateTo(Routes.CircleEditor(Id))) class="btn btn-secondary">Edit</button>
     </div>
 </div>
