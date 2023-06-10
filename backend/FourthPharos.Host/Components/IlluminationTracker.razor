@@ -1,0 +1,9 @@
+<ul class='circle-container'>
+    @for (var i = 1; i < 25; ++i)
+    {
+        var isMilestone = i % 7 == 0;
+        var isFilled = i <= NormalizedIIlumination;
+        <li><span class="pip @(isMilestone ? "milestone" : "") @(i <= NormalizedIIlumination ? "filled" : "")"></span></li>
+    }
+  <li><span class="pip separator"></span></li>
+</ul>

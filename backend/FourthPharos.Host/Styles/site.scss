@@ -1,20 +1,24 @@
-@import '_colors.scss';
-@import '_units.scss';
+@import "_colors.scss";
+@import "_units.scss";
 
-@import url('https://fonts.googleapis.com/css?family=Crimson+Text:400,600');
+@import url("https://fonts.googleapis.com/css?family=Crimson+Text:400,600");
 
 body {
-    font-family: 'Crimson Text';
-    font-weight: 400;
-    font-size: 20px;
-    padding: 0;
-    margin: 0;
-    background-color: $steel-light;
+  font-family: "Crimson Text";
+  font-weight: 400;
+  font-size: 20px;
+  padding: 0;
+  margin: 0;
+  background-color: $steel-light;
 }
 
 a {
   text-decoration: none;
   cursor: pointer;
+}
+
+.material-symbols-sharp {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
 }
 
 .section-title {
@@ -24,7 +28,7 @@ a {
 
 .page {
   display: grid;
-  grid-template: 'header' 'body';
+  grid-template: "header" "body";
   background-color: $steel-very-light;
   width: 100%;
   width: 900px;
