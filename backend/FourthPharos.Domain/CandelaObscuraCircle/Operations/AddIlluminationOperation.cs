@@ -15,7 +15,16 @@ public static class AddIlluminationOperation
             DomainExceptions.CircleExceptions.IlluminationBelowZero();
         }
 
+        var rank = feature.Rank;
+
         feature = feature with { Illumination = feature.Illumination + illumination };
+
+        var newRank = feature.Rank;
+
+        if (rank > newRank)
+        {
+            circle.SelectAbility(null, rank);
+        }
 
         return circle.UpdateFeature(feature);
     }

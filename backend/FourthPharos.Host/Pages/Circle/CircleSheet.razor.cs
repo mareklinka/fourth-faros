@@ -20,7 +20,7 @@ public partial class CircleSheet
 
     protected override async Task OnInitializedAsync()
     {
-        base.OnInitialized();
+        await base.OnInitializedAsync();
 
         var authState = await authStateProvider.GetAuthenticationStateAsync();
         userId = authState.User.GetUserId();
@@ -33,7 +33,12 @@ public partial class CircleSheet
         }
 
         Model = circle;
-        SelectedAbilities = Model
+        UpdateSelectedAbilities();
+    }
+
+    private void UpdateSelectedAbilities()
+    {
+        SelectedAbilities = Model!
             .Circle
             .GetFeature<Domain.CandelaObscuraCircle.Models.Circle, CircleAbilitiesFeature>()
             .Abilities
@@ -66,6 +71,7 @@ public partial class CircleSheet
             if (feature.Illumination > 0)
             {
                 Model.Circle.AddIllumination(-1);
+                UpdateSelectedAbilities();
             }
         }
         else
