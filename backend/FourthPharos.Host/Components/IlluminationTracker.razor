@@ -1,9 +1,15 @@
 <ul class='circle-container'>
     @for (var i = 1; i < 25; ++i)
     {
+        var item = i;
         var isMilestone = i % 7 == 0;
         var isFilled = i <= NormalizedIIlumination;
-        <li><span class="pip @(isMilestone ? "milestone" : "") @(i <= NormalizedIIlumination ? "filled" : "")"></span></li>
+        <li>
+          <span
+            class="pip @(isMilestone ? "milestone" : "") @(i <= NormalizedIIlumination ? "filled" : "")"
+            @onclick=@(async () => await PipClicked.InvokeAsync(item))></span>
+          </li>
     }
-  <li><span class="pip separator"></span></li>
+  <li><span class="pip separator" @onclick=@(async () => await PipClicked.InvokeAsync(0))></span></li>
 </ul>
+<span>Rank: @Rank</span>

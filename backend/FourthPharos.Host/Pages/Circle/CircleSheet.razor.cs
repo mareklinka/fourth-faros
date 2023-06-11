@@ -56,4 +56,21 @@ public partial class CircleSheet
             Model.Circle.RestoreStaminaDice();
         }
     }
+
+    private void ToggleIlluminationPip(int pip)
+    {
+        var feature = Model!.Circle.GetFeature<Domain.CandelaObscuraCircle.Models.Circle, CircleIlluminationFeature>();
+
+        if ((feature.Illumination % 24) >= pip)
+        {
+            if (feature.Illumination > 0)
+            {
+                Model.Circle.AddIllumination(-1);
+            }
+        }
+        else
+        {
+            Model.Circle.AddIllumination(1);
+        }
+    }
 }

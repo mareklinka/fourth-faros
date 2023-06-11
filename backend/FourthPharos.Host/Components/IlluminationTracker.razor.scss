@@ -1,3 +1,6 @@
+@import '../Styles/_colors.scss';
+@import '../Styles/_units.scss';
+
 /// Mixin to place items on a circle
 /// @author Kitty Giraudel
 /// @author Ana Tudor
@@ -19,7 +22,6 @@
     left: 50%;
     width: $item-size;
     height: $item-size;
-    margin: -calc($item-size / 2);
 
     $angle: calc(360 / $item-count);
     $rot: 0;
@@ -27,8 +29,9 @@
     @for $i from 1 through $item-count {
       &:nth-of-type(#{$i}) {
         transform: rotate($rot * 1deg - 78deg)
-          translate(calc($circle-size / 2))
-          rotate($rot * -1deg);
+          translate(calc(($circle-size / 2)))
+          rotate($rot * -1deg)
+          translateY(-12px)
       }
 
       $rot: $rot + $angle;
@@ -37,14 +40,22 @@
 }
 
 .pip {
+  cursor: pointer;
+
+  &:hover {
+    color: $emerald-dark;
+  }
+
   &::before {
     font-family: "Material Symbols Sharp";
     content: "\e836";
   }
 
-  &.separator::before {
-    font-variation-settings: "FILL" 1;
-    content: "\e3ac";
+  &.separator{
+    &::before {
+      font-variation-settings: "FILL" 1;
+      content: "\e3ac";
+    }
   }
 
   &.milestone::before {

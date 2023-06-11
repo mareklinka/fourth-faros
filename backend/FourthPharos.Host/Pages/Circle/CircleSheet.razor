@@ -59,16 +59,29 @@ else
             </div>
         </div>
         <div class="sheet-right">
-            <div class="illumination">
-                <div class="illumination-tracker section">
+            <div class="illumination section">
+                <div class="illumination-tracker">
                     <div class="heading">Illumination</div>
-                    <IlluminationTracker Illumination="Model.Illumination"></IlluminationTracker>
+                    <IlluminationTracker
+                        Illumination="Model.Illumination"
+                        Rank = "Model.Rank"
+                        PipClicked="@(pip => ToggleIlluminationPip(pip))"></IlluminationTracker>
                 </div>
                 <div class="section">
                     <div class="heading">CIRCLE ADVANCEMENT</div>
                     <div class="text">When the Illumination track is full, clear the track. Any leftover Illumination counts toward your next advancement cycle. Then choose a new circle ability, and all players can choose their character advancement options</div>
                     <div class="note">The bolded circles represent milestones, which may have mechanical benefits depending on what abilities your circle chooses.</div>
                 </div>
+            </div>
+            <div class="section">
+                <div class="heading">Character advancement</div>
+                <div class="text accent">At character advancement, each player can choose two different options:</div>
+                <ul>
+                    <li>Add 1 action point.</li>
+                    <li>Add 2 drive points.</li>
+                    <li>Take a new ability.</li>
+                    <li>Gild an additional action.</li>
+                </ul>
             </div>
         </div>
     </div>
