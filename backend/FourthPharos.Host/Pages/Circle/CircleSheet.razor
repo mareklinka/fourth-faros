@@ -83,6 +83,25 @@ else
                     <li>Gild an additional action.</li>
                 </ul>
             </div>
+            <div class="section">
+                <div class="heading">Candela Obscura Resources</div>
+                <div class="text">In each of the following resources, fill in both sections (top and bottom) equal to the number of your circle members plus one. Between assignments, each player may spend up to two resources of their choosing. When resources are used, only erase the top section.</div>
+                <ResourceCounter
+                    Name="Stitch"
+                    Max="ResourceMax"
+                    Available="GetResource(CircleResource.Stitch)"
+                    PipClicked="@(e => ToggleResourcePip(e, CircleResource.Stitch))"></ResourceCounter>
+                <ResourceCounter
+                    Name="Refresh"
+                    Max="ResourceMax"
+                    Available="GetResource(CircleResource.Refresh)"
+                    PipClicked="@(e => ToggleResourcePip(e, CircleResource.Refresh))"></ResourceCounter>
+                <ResourceCounter
+                    Name="Train"
+                    Max="ResourceMax"
+                    Available="GetResource(CircleResource.Train)"
+                    PipClicked="@(e => ToggleResourcePip(e, CircleResource.Train))"></ResourceCounter>
+            </div>
         </div>
     </div>
 }

@@ -1,0 +1,21 @@
+<div class="resource-counter">
+  <div class="resource-counter-name">@Name</div>
+  <div class="resource-counter-pips">
+    @for (var i = 1; i <= 9; ++i)
+    {
+        var index = i;
+
+        <div class="counter-pip @((index - 1) % 3 == 0 ? "gap" : "")">
+            <div
+                class="pip-section-available @(Available >= index ? "available" : "")"
+                @onclick="@(async () => await PipClicked.InvokeAsync(index))"></div>
+            <div class="pip-section-max @(Max >= index ? "available" : "")"></div>
+        </div>
+    }
+  </div>
+
+  <div class="resource-counter-notes">
+    <span>Available</span>
+    <span>Max</span>
+  </div>
+</div>

@@ -1,5 +1,5 @@
-using FourthPharos.Domain.CandelaObscuraCircle.Models;
 using FourthPharos.Domain.CandelaObscuraCircle.Features;
+using FourthPharos.Domain.CandelaObscuraCircle.Models;
 using FourthPharos.Domain.Features;
 
 namespace FourthPharos.Domain.CandelaObscuraCircle;

@@ -1,0 +1,78 @@
+@import "../Styles/units";
+@import "../Styles/colors";
+
+.resource-counter {
+  display: flex;
+  align-items: stretch;
+  margin: $token-size-0-5 0;
+  max-width: 40rem;
+
+  .resource-counter-name {
+    flex-shrink: 0;
+    flex-grow: 1;
+    padding-left: $token-size-0-5;
+
+    background-color: black;
+
+    color: white;
+    font-size: 2rem;
+    text-transform: uppercase;
+  }
+
+  .resource-counter-pips {
+    flex-grow: 1;
+    background-color: black;
+    display: flex;
+    align-items: stretch;
+    justify-content: end;
+    padding-right: 0.125rem;
+
+    .counter-pip {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      width: 1rem;
+
+      .pip-section-available {
+        cursor: pointer;
+        flex-grow: 0.7;
+        background-color: white;
+        margin: 2px;
+
+        &.available {
+          background-color: $emerald-medium;
+        }
+
+        &:hover {
+          background-color: $emerald-light;
+        }
+      }
+
+      .pip-section-max {
+        flex-grow: 0.3;
+        background-color: white;
+        margin: 2px;
+
+        &.available {
+          background-color: $emerald-dark;
+        }
+      }
+
+      &.gap {
+        margin-left: $token-size-0-5;
+      }
+    }
+  }
+
+  .resource-counter-notes {
+    padding-left: 0.125rem;
+    font-size: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-items: end;
+
+    :first-child {
+      flex-grow: 1;
+    }
+  }
+}

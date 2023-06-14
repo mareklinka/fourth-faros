@@ -1,4 +1,5 @@
 using FourthPharos.Domain.CandelaObscuraCircle.Features;
+using FourthPharos.Domain.CandelaObscuraCircle.Models;
 using FourthPharos.Domain.CandelaObscuraCircle.Operations;
 using FourthPharos.Domain.Features;
 using FourthPharos.Host.Extensions;
@@ -79,4 +80,26 @@ public partial class CircleSheet
             Model.Circle.AddIllumination(1);
         }
     }
+
+    private void ToggleResourcePip(int pip, CircleResource resource)
+    {
+        var feature = Model!.Circle.GetFeature<Domain.CandelaObscuraCircle.Models.Circle, CircleResourcesFeature>();
+
+        var current = feature.Resources[resource];
+
+        if (current >= pip)
+        {
+            Model.Circle.ConsumeResource(resource);
+        }
+        else if (current < feature.ResourceMaximum)
+        {
+            Model.Circle.RestoreResource(resource);
+        }
+    }
+
+    private int ResourceMax =>
+        Model!.Circle.GetFeature<Domain.CandelaObscuraCircle.Models.Circle, CircleResourcesFeature>().ResourceMaximum;
+
+    private int GetResource(CircleResource resource) =>
+        Model!.Circle.GetFeature<Domain.CandelaObscuraCircle.Models.Circle, CircleResourcesFeature>().Resources[resource];
 }
