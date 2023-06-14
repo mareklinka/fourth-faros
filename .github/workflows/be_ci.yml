@@ -9,7 +9,7 @@ on:
   pull_request:
     branches:
       - main
-    
+
 jobs:
   build:
     name: 'Backend CI Build'
@@ -25,13 +25,16 @@ jobs:
         uses: actions/setup-dotnet@v3.2.0
         with:
           global-json-file: './backend/global.json'
-          
+
       - name: Install dependencies
         run: dotnet restore
-        
+
+      - name: Lint
+        run: dotnet format --verify-no-changes
+
       - name: Build
         run: dotnet build --configuration Release --no-restore
-        
+
       - name: Test
         run: dotnet test --no-restore --verbosity normal
-      
+
