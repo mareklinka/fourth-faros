@@ -72,6 +72,10 @@
   .heading {
     text-transform: uppercase;
     font-size: $token-size-1-5;
+
+    &.large {
+      font-size: $token-size-2;
+    }
   }
 
   .note {
@@ -125,9 +129,10 @@
   span.stamina-die {
     margin-left: $token-size-0-5;
     cursor: pointer;
+    color: $emerald-dark;
 
     &:hover {
-      color: $emerald-dark;
+      color: $emerald-light;
     }
 
     &.available::after {
@@ -149,7 +154,8 @@
   .illumination-tracker {
     display: flex;
     flex-direction: column;
-    align-items: center;margin-left: 1rem;
+    align-items: center;
+    margin-left: 1rem;
   }
 
   > :last-child {
@@ -157,6 +163,36 @@
 
     :nth-child(2) {
       margin-bottom: $token-size-1;
+    }
+  }
+}
+
+.gear-table {
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  flex-grow: 1;
+  overflow-y: scroll;
+
+  .gear-item {
+    margin: $token-size-0-5;
+    border-bottom: 2px solid black;
+    font-size: $token-size-1-5;
+    display: flex;
+
+    >input {
+      border: none;
+      font-size: $token-size-1-25;
+      flex-grow: 1;
+      flex-shrink: 1;
+      min-inline-size: 0;
+
+      &::placeholder {
+        font-style: italic;
+      }
+
+      &:focus-visible {
+        outline: none;
+      }
     }
   }
 }

@@ -19,7 +19,7 @@
     <div class="circle-list">
         @foreach (var c in circleService.GetCircles())
         {
-            <CircleCard @key="@c.Id" Id="@c.Id" Name="@c.Name" Members="@c.Members" Location="@c.Location" class="circle-card-layout"></CircleCard>
+            <CircleCard @key="@c.Id" Id="@c.Id" Name="@c.Name" Members="@c.MemberCount" Location="@c.Location" class="circle-card-layout"></CircleCard>
         }
     </div>
 </div>

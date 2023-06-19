@@ -16,5 +16,7 @@ public sealed record CircleModel(Circle Circle, Guid OwnerId)
 
     public int Illumination => Circle.GetFeature<Circle, CircleIlluminationFeature>().Illumination;
 
-    public int Members => Circle.Characters.Length;
+    public int MemberCount => Circle.Characters.Length;
+
+    public IReadOnlyCollection<CircleGear> Gear => Circle.GetFeature<Circle, CircleGearFeature>().Gear;
 }

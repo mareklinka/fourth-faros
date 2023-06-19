@@ -26,35 +26,69 @@ else
             <div class="section">
                 <div class="heading">Illumination questions & keys</div>
                 <div class="text">
-                    <div>Ask these at the end of every assignment. For every “yes,” fill in a point on the Illumination track.</div>
+                    <div>Ask these at the end of every assignment. For every “yes,” fill in a point on the Illumination
+                        track.</div>
                     <ul>
                         <li>Did you contain or destroy a source of bleed?</li>
                         <li>Did you provide comfort or support for those affected?</li>
                         <li>Did you bring something of importance back for Candela Obscura to study?</li>
                     </ul>
-                    <div>Earn 2 Illumination if some, but not all, players fulfilled an Illumination Key during the session. Earn 4 if every player fulfilled at least one Illumination Key during the session. If nobody in the circle fulfilled any of their Keys, take no additional Illumination.</div>
+                    <div>Earn 2 Illumination if some, but not all, players fulfilled an Illumination Key during the session.
+                        Earn 4 if every player fulfilled at least one Illumination Key during the session. If nobody in the
+                        circle fulfilled any of their Keys, take no additional Illumination.</div>
                 </div>
             </div>
             <div class="section">
-                <div class="heading">CIRCLE ABILITIES</div>
+                <div class="heading large">CIRCLE ABILITIES</div>
                 <div class="note">Choose one at character creation and one each time your circle advances.</div>
                 <ul class="ability-list">
-                    <li class="@(SelectedAbilities.TryGetValue(CircleAbility.StaminaTraining.Code, out var isSelected) && isSelected ? "selected" : "")"><span class="ability-name">Stamina Training:</span> Your circle has three gilded dice at the beginning of every assignment that you may add to any roll. Once a die has been rolled, it is expended.
-                    @if(isSelected)
-                    {
-                        var remainingStaminaDice = GetStaminaDice();
-                        <div class="stamina-counter">
-                            <span class="stamina-dice-label">Remaining stamina dice: </span>
-                            <span class="stamina-die @(remainingStaminaDice >= 1 ? "available" : "spent")" @onclick=@(() => ToggleStaminaDie(1))></span>
-                            <span class="stamina-die @(remainingStaminaDice >= 2 ? "available" : "spent")" @onclick=@(() => ToggleStaminaDie(2))></span>
-                            <span class="stamina-die @(remainingStaminaDice >= 3 ? "available" : "spent")" @onclick=@(() => ToggleStaminaDie(3))></span>
-                        </div>
-                    }</li>
-                    <li class="@(SelectedAbilities.TryGetValue(CircleAbility.NobodyLeftBehind.Code, out isSelected) && isSelected ? "selected" : "")"><span class="ability-name">Nobody Left Behind:</span> When a member of your circle takes a scar and drops incapacitated, any rolls a player makes in the scene to protect them or get them out of danger have +1d.</li>
-                    <li class="@(SelectedAbilities.TryGetValue(CircleAbility.ForgedInFire.Code, out isSelected) && isSelected ? "selected" : "")"><span class="ability-name">Forged in Fire:</span> When you help an ally on a roll, if they don’t succeed, you both earn back 1 drive point of your choice.</li>
-                    <li class="@(SelectedAbilities.TryGetValue(CircleAbility.Interdisciplinary.Code, out isSelected) && isSelected ? "selected" : "")"><span class="ability-name">Interdisciplinary:</span> When choosing a new ability during character advancement, once per campaign, each player may choose an ability from a character role or specialty outside their own.</li>
-                    <li class="@(SelectedAbilities.TryGetValue(CircleAbility.ResourceManagement.Code, out isSelected) && isSelected ? "selected" : "")"><span class="ability-name">Resource Management:</span> When your circle hits a milestone on the Illumination track, earn back one Stitch, Refresh, or Train resource.</li>
-                    <li class="@(SelectedAbilities.TryGetValue(CircleAbility.OneLastRun.Code, out isSelected) && isSelected ? "selected" : "")"><span class="ability-name">One Last Run:</span> When you select this ability, the next time you fill your Illumination track, your circle will retire from service. Everyone takes all four options during this character advancement.</li>
+                    <li
+                        class="@(SelectedAbilities.TryGetValue(CircleAbility.StaminaTraining.Code, out var isSelected) && isSelected ? "selected" : "")">
+                        <span class="ability-name">Stamina Training:</span> Your circle has three gilded dice at the
+                        beginning of every assignment that you may add to any roll. Once a die has been rolled, it is
+                        expended.
+                        @if (isSelected)
+                        {
+                            var remainingStaminaDice = GetStaminaDice();
+                            <div class="stamina-counter">
+                                <span class="stamina-dice-label">Remaining stamina dice: </span>
+                                <span class="stamina-die @(remainingStaminaDice >= 1 ? "available" : "spent")" @onclick=@(() =>
+                            ToggleStaminaDie(1))></span>
+                                <span class="stamina-die @(remainingStaminaDice >= 2 ? "available" : "spent")" @onclick=@(() =>
+                            ToggleStaminaDie(2))></span>
+                                <span class="stamina-die @(remainingStaminaDice >= 3 ? "available" : "spent")" @onclick=@(() =>
+                            ToggleStaminaDie(3))></span>
+                            </div>
+                        }
+                    </li>
+                    <li
+                        class="@(SelectedAbilities.TryGetValue(CircleAbility.NobodyLeftBehind.Code, out isSelected) && isSelected ? "selected" : "")">
+                        <span class="ability-name">Nobody Left Behind:</span> When a member of your circle takes a scar and
+                        drops incapacitated, any rolls a player makes in the scene to protect them or get them out of danger
+                        have +1d.
+                    </li>
+                    <li
+                        class="@(SelectedAbilities.TryGetValue(CircleAbility.ForgedInFire.Code, out isSelected) && isSelected ? "selected" : "")">
+                        <span class="ability-name">Forged in Fire:</span> When you help an ally on a roll, if they don’t
+                        succeed, you both earn back 1 drive point of your choice.
+                    </li>
+                    <li
+                        class="@(SelectedAbilities.TryGetValue(CircleAbility.Interdisciplinary.Code, out isSelected) && isSelected ? "selected" : "")">
+                        <span class="ability-name">Interdisciplinary:</span> When choosing a new ability during character
+                        advancement, once per campaign, each player may choose an ability from a character role or specialty
+                        outside their own.
+                    </li>
+                    <li
+                        class="@(SelectedAbilities.TryGetValue(CircleAbility.ResourceManagement.Code, out isSelected) && isSelected ? "selected" : "")">
+                        <span class="ability-name">Resource Management:</span> When your circle hits a milestone on the
+                        Illumination track, earn back one Stitch, Refresh, or Train resource.
+                    </li>
+                    <li
+                        class="@(SelectedAbilities.TryGetValue(CircleAbility.OneLastRun.Code, out isSelected) && isSelected ? "selected" : "")">
+                        <span class="ability-name">One Last Run:</span> When you select this ability, the next time you fill
+                        your Illumination track, your circle will retire from service. Everyone takes all four options
+                        during this character advancement.
+                    </li>
                 </ul>
             </div>
         </div>
@@ -62,19 +96,20 @@ else
             <div class="illumination section">
                 <div class="illumination-tracker">
                     <div class="heading">Illumination</div>
-                    <IlluminationTracker
-                        Illumination="Model.Illumination"
-                        Rank = "Model.Rank"
+                    <IlluminationTracker Illumination="Model.Illumination" Rank="Model.Rank"
                         PipClicked="@(pip => ToggleIlluminationPip(pip))"></IlluminationTracker>
                 </div>
                 <div class="section">
                     <div class="heading">CIRCLE ADVANCEMENT</div>
-                    <div class="text">When the Illumination track is full, clear the track. Any leftover Illumination counts toward your next advancement cycle. Then choose a new circle ability, and all players can choose their character advancement options.</div>
-                    <div class="note">The bolded circles represent milestones, which may have mechanical benefits depending on what abilities your circle chooses.</div>
+                    <div class="text">When the Illumination track is full, clear the track. Any leftover Illumination counts
+                        toward your next advancement cycle. Then choose a new circle ability, and all players can choose
+                        their character advancement options.</div>
+                    <div class="note">The bolded circles represent milestones, which may have mechanical benefits depending
+                        on what abilities your circle chooses.</div>
                 </div>
             </div>
             <div class="section">
-                <div class="heading">Character advancement</div>
+                <div class="heading large">Character advancement</div>
                 <div class="text accent">At character advancement, each player can choose two different options:</div>
                 <ul>
                     <li>Add 1 action point.</li>
@@ -84,23 +119,30 @@ else
                 </ul>
             </div>
             <div class="section">
-                <div class="heading">Candela Obscura Resources</div>
-                <div class="text">In each of the following resources, fill in both sections (top and bottom) equal to the number of your circle members plus one. Between assignments, each player may spend up to two resources of their choosing. When resources are used, only erase the top section.</div>
-                <ResourceCounter
-                    Name="Stitch"
-                    Max="ResourceMax"
-                    Available="GetResource(CircleResource.Stitch)"
+                <div class="heading large">Candela Obscura Resources</div>
+                <div class="text">In each of the following resources, fill in both sections (top and bottom) equal to the
+                    number of your circle members plus one. Between assignments, each player may spend up to two resources
+                    of their choosing. When resources are used, only erase the top section.</div>
+                <ResourceCounter Name="Stitch" Max="ResourceMax" Available="GetResource(CircleResource.Stitch)"
                     PipClicked="@(e => ToggleResourcePip(e, CircleResource.Stitch))"></ResourceCounter>
-                <ResourceCounter
-                    Name="Refresh"
-                    Max="ResourceMax"
-                    Available="GetResource(CircleResource.Refresh)"
+                <ResourceCounter Name="Refresh" Max="ResourceMax" Available="GetResource(CircleResource.Refresh)"
                     PipClicked="@(e => ToggleResourcePip(e, CircleResource.Refresh))"></ResourceCounter>
-                <ResourceCounter
-                    Name="Train"
-                    Max="ResourceMax"
-                    Available="GetResource(CircleResource.Train)"
+                <ResourceCounter Name="Train" Max="ResourceMax" Available="GetResource(CircleResource.Train)"
                     PipClicked="@(e => ToggleResourcePip(e, CircleResource.Train))"></ResourceCounter>
+            </div>
+            <div class="section">
+                <div class="heading large">Circle Gear</div>
+                <div class="gear-table">
+                    @foreach (var (id, name) in Model.Gear)
+                    {
+                        <div class="gear-item" @key="id" title="@name">
+                            <input type="text" value="@name" @onchange="@(e => UpdateGear(id, e.Value as string))" />
+                        </div>
+                    }
+                    <div class="gear-item">
+                        <input type="text" @bind="@NewGearName" placeholder="Type to add gear" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>

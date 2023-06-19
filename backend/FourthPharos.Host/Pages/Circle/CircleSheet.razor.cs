@@ -17,6 +17,13 @@ public partial class CircleSheet
 
     private Guid userId = Guid.Empty;
 
+    private string? newGearName;
+
+    private string? NewGearName
+    {
+        get => newGearName; set => AddNewGear(value);
+    }
+
     private IReadOnlyDictionary<string, bool> SelectedAbilities { get; set; } = new Dictionary<string, bool>();
 
     protected override async Task OnInitializedAsync()
@@ -102,4 +109,28 @@ public partial class CircleSheet
 
     private int GetResource(CircleResource resource) =>
         Model!.Circle.GetFeature<Domain.CandelaObscuraCircle.Models.Circle, CircleResourcesFeature>().Resources[resource];
+
+    private void AddNewGear(string? gearName)
+    {
+        if (string.IsNullOrEmpty(gearName))
+        {
+            return;
+        }
+
+        Model!.Circle.AddGear(gearName);
+        newGearName = null;
+    }
+
+    private void UpdateGear(Guid id, string? value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            Model!.Circle.RemoveGear(id);
+        }
+        else
+        {
+            Model!.Circle.UpdateGear(id, value);
+            Console.WriteLine($"Update gear {id} to {value}");
+        }
+    }
 }

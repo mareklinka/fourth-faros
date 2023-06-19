@@ -33,6 +33,8 @@ public static class DomainExceptions
         public static DomainActionException AssignmentAlreadyActive() => new(nameof(AssignmentAlreadyActive), $"Circle is already on an assignment");
 
         public static DomainActionException NoActiveAssignment() => new(nameof(NoActiveAssignment), $"Circle is already on an assignment");
+
+        public static DomainActionException InvalidGear(Guid id) => new(nameof(InvalidGear), $"Gear {id} does not exist", id);
     }
 
     public static class CircleGearExceptions
