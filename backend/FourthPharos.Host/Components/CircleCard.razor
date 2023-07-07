@@ -9,5 +9,6 @@
     <div class="circle-actions">
         <button type="button" @onclick=@(() => navigator.NavigateTo(Routes.CircleSheet(Id))) class="btn btn-primary">View</button>
         <button type="button" @onclick=@(() => navigator.NavigateTo(Routes.CircleEditor(Id))) class="btn btn-secondary">Edit</button>
+        <button type="button" @onclick="@DeleteCircle" class="btn btn-secondary">Delete</button>
     </div>
 </div>

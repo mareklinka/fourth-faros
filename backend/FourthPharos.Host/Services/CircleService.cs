@@ -17,4 +17,7 @@ public sealed class CircleService : ICircleService
 
         return circle;
     }
+
+    public void DeleteCircle(Guid id) => _circles.RemoveAll(_ => _.Id == id);
+
 }

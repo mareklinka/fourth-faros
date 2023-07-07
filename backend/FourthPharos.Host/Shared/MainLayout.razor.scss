@@ -15,7 +15,7 @@
     color: $steel-light;
     align-items: center;
 
-    border-bottom: $copper-medium solid 0.0625rem;
+    border-bottom: $steel-light solid 0.0625rem;
 
     .app-menu {
       font-weight: 500;
@@ -27,7 +27,7 @@
       a {
         cursor: pointer;
         &:hover {
-          color: $copper-medium;
+          color: $steel-very-light;
         }
       }
     }

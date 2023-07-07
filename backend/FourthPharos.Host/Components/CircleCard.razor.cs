@@ -15,4 +15,9 @@ public partial class CircleCard
 
     [Parameter]
     public string Location { get; set; } = string.Empty;
+
+    [Parameter]
+    public EventCallback<Guid> OnCircleDeleted { get; set; }
+
+    private Task DeleteCircle() => OnCircleDeleted.InvokeAsync(Id);
 }

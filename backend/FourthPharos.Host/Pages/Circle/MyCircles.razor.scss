@@ -10,11 +10,7 @@
 }
 
 .circle-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-
-    ::deep .circle-card-layout {
-        width: 400px;
-    }
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 4rem;
 }

@@ -2,10 +2,15 @@
 @import '../Styles/_units.scss';
 
 .circle-card {
-    border: $copper-dark solid 0.125rem;
+    border: $steel-dark solid 0.125rem;
     display: flex;
     flex-direction: column;
-    background-color: $steel-dark;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 transparentize($color: $steel-dark, $amount: 0.7), 0 6px 20px 0 transparentize($color: $steel-dark, $amount: 0.7);
+
+    &:hover {
+        box-shadow: 0 4px 8px 0 transparentize($color: $steel-dark, $amount: 0.55), 0 6px 20px 0 transparentize($color: $steel-dark, $amount: 0.55);
+    }
 
     .circle-name {
         text-align: center;
@@ -26,7 +31,7 @@
     }
 
     .circle-actions {
-        background-color: $copper-light;
+        background-color: $steel-light;
         padding: $token-size-1;
 
         .btn {

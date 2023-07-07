@@ -13,4 +13,6 @@ public partial class MyCircles
     }
 
     private void CreateCircle(string name) => circleService.CreateCircle(name, userId);
+
+    private void DeleteCircle(Guid id) => circleService.DeleteCircle(id);
 }

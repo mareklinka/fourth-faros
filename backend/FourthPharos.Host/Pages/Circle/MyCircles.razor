@@ -7,19 +7,23 @@
 @inject AuthenticationStateProvider authStateProvider
 @inject NavigationManager navigator
 
+@attribute [Authorize]
+
 <PageTitle>(ALPHA) Fourth Pharos - My Circles</PageTitle>
 
 <div class="page">
     <div class="page-title">
         <div>My Circles</div>
         <div class="new-circle">
-            <button type="button" @onclick=@(() => navigator.NavigateTo(Routes.NewCircle))>New circle</button>
+            <button type="button" class="btn btn-primary" @onclick=@(() => navigator.NavigateTo(Routes.NewCircle))>New
+                circle</button>
         </div>
     </div>
     <div class="circle-list">
         @foreach (var c in circleService.GetCircles())
         {
-            <CircleCard @key="@c.Id" Id="@c.Id" Name="@c.Name" Members="@c.MemberCount" Location="@c.Location" class="circle-card-layout"></CircleCard>
+            <CircleCard @key="@c.Id" Id="@c.Id" Name="@c.Name" Members="@c.MemberCount" Location="@c.Location" OnCircleDeleted="@DeleteCircle"
+                class="circle-card-layout"></CircleCard>
         }
     </div>
 </div>
