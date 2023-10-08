@@ -94,5 +94,7 @@ public static class DomainExceptions
         public static DomainActionException RelationshipDescriptionTooLong(int length) => new(nameof(RelationshipDescriptionTooLong), $"The relationship description must not exceed {length} characters", length);
 
         public static DomainActionException InvalidRelationship(Guid id) => new(nameof(InvalidRelationship), $"Relationship {id} does not exist", id);
+
+        public static DomainActionException InvalidAbility(string code) => new(nameof(InvalidAbility), $"Ability {code} is not valid for character", code);
     }
 }

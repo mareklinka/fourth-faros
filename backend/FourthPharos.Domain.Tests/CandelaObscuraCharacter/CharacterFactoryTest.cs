@@ -39,7 +39,7 @@ public class CharacterFactoryTest
         {
             var character = CharacterFactory.CreateCharacter("Crowley Thornwood");
 
-            character.Features.Count.ShouldBe(12);
+            character.Features.Count.ShouldBe(13);
 
             character.GetFeature<Character, CharacterBasicInfoFeature>();
             character.GetFeature<Character, CharacterNotesFeature>();
@@ -53,6 +53,7 @@ public class CharacterFactoryTest
             character.GetFeature<Character, CharacterBleedMarksFeature>();
             character.GetFeature<Character, CharacterIlluminationKeysFeature>();
             character.GetFeature<Character, CharacterRelationshipFeature>();
+            character.GetFeature<Character, CharacterStartingAbilityFeature>();
         });
 
     [Fact]

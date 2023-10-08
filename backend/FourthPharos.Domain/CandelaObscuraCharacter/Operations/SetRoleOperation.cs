@@ -11,6 +11,11 @@ public static class SetRoleOperation
     {
         var feature = character.GetFeature<Character, CharacterRoleFeature>();
 
+        if (specialty != feature.Specialty)
+        {
+            character.SetStartingAbility(null);
+        }
+
         return character.UpdateFeature(feature with { Specialty = specialty });
     }
 }
