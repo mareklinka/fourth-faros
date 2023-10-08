@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FourthPharos.Domain.Tests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FourthPharos.Host", "FourthPharos.Host\FourthPharos.Host.csproj", "{7DFC489B-AC26-4E61-BDBD-21F45D929974}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FourthPharos.Domain.Functional", "FourthPharos.Domain.Functional\FourthPharos.Domain.Functional.fsproj", "{C8AFE6CD-4470-491C-ABC5-85730BD1FB6D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{7DFC489B-AC26-4E61-BDBD-21F45D929974}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DFC489B-AC26-4E61-BDBD-21F45D929974}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DFC489B-AC26-4E61-BDBD-21F45D929974}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8AFE6CD-4470-491C-ABC5-85730BD1FB6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8AFE6CD-4470-491C-ABC5-85730BD1FB6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8AFE6CD-4470-491C-ABC5-85730BD1FB6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8AFE6CD-4470-491C-ABC5-85730BD1FB6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
