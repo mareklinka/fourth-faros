@@ -84,8 +84,7 @@ module Circle =
     type addIllumination = int -> Circle -> Result<Circle, ValidationErrors>
     type startAssignment = DateTime -> Circle -> Result<Circle, ValidationErrors>
     type finishAssignment = Circle -> Result<Circle, ValidationErrors>
-    type addGear = Gear -> Circle -> Result<Circle, ValidationErrors>
-    type removeGear = Gear -> Circle -> Result<Circle, ValidationErrors>
+    type gearOperation = Gear -> Circle -> Result<Circle, ValidationErrors>
     type resourceOperation = ResourceType -> Circle -> Result<Circle, ValidationErrors>
 
     let milestone c =

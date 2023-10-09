@@ -30,7 +30,7 @@ module CircleOperations =
             |> Check.WithMessage.Option.isSome (fun _ -> "Circle has no active assignment") (nameof (c.Assignment))
             |> Result.map (fun _ -> { c with Assignment = None })
 
-    let addGear: addGear =
+    let addGear: gearOperation =
         fun g c ->
             let rule c g = c.Gear |> List.contains g |> not
 
@@ -43,7 +43,7 @@ module CircleOperations =
                 return { c with Gear = g :: c.Gear }
             }
 
-    let removeGear: addGear =
+    let removeGear: gearOperation =
         fun g c ->
             let rule c g = c.Gear |> List.contains g
             let validator = Validator.create (fun _ -> "Gear not found") (rule c) (nameof (g))
