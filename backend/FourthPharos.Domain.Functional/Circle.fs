@@ -1,9 +1,11 @@
 ﻿namespace FourthPharos.Domain.Functional
 
 open FourthPharos.Domain.Functional.Domain
+open System
+open Validus
+open Validus.Operators
 
 module Circle =
-    open System
     type Illumination = private Illumination of int
 
     let (|Illumination|) =
@@ -12,9 +14,8 @@ module Circle =
 
     let createIllumination =
         fun i ->
-            match i with
-            | _ when i < 0 -> None
-            | _ -> Some(Illumination i)
+            i
+            |> (Check.Int.greaterThanOrEqualTo 0 *|* Illumination) (nameof (i))
 
     type Rank = private Rank of int
 
@@ -28,7 +29,7 @@ module Circle =
         | Two
         | Three
 
-    type StaminaTrainingDice = Stamina of int
+    type StaminaTrainingDice = Dice of int
 
     type StaminaTraining = StaminaTraining of StaminaTrainingDice
     type NobodyLeftBehind = NobodyLeftBehind
@@ -37,10 +38,7 @@ module Circle =
     type ResourceManagement = ResourceManagement
     type OneLastRun = OneLastRun
 
-    type AbilitySelection<'T> = {
-        Ability: 'T;
-        TakenAtRank: Rank
-    }
+    type AbilitySelection<'T> = { Ability: 'T; TakenAtRank: Rank }
 
     type AbilityOption<'T> =
         | Selected of AbilitySelection<'T>
@@ -57,20 +55,38 @@ module Circle =
     type Assignment = StartDate of DateTime
     type Gear = Gear of String50
 
+    type ResourceType = Stitch | Train | Refresh
+    type Resource = private Resource of int
+
+    let (|Resource|) =
+        function
+        | Resource.Resource i -> Resource i
+
+    let createResource =
+        fun i ->
+            i
+            |> (Check.Int.between 0 3 *|* Resource) (nameof (i))
+
     type Circle =
         { Name: String50
           Location: String200
           Illumination: Illumination
           Abilities: Abilities
           Assignment: Assignment option
-          Gear: Gear list }
+          Gear: Gear list
+          Stitch: Resource
+          Refresh: Resource
+          Train: Resource }
 
     type setName = String50 -> Circle -> Circle
     type setLocation = String200 -> Circle -> Circle
     type milestone = Circle -> Milestone
-    type addIllumination = int -> Circle -> Circle option
-    type startAssignment = DateTime -> Circle -> Circle option
-    type finishAssignment = Circle -> Circle option
+    type addIllumination = int -> Circle -> Result<Circle, ValidationErrors>
+    type startAssignment = DateTime -> Circle -> Result<Circle, ValidationErrors>
+    type finishAssignment = Circle -> Result<Circle, ValidationErrors>
+    type addGear = Gear -> Circle -> Result<Circle, ValidationErrors>
+    type removeGear = Gear -> Circle -> Result<Circle, ValidationErrors>
+    type resourceOperation = ResourceType -> Circle -> Result<Circle, ValidationErrors>
 
     let milestone c =
         match c.Illumination with
@@ -81,5 +97,4 @@ module Circle =
 
     let rank c =
         match c.Illumination with
-        | Illumination i -> Rank (1 + (i / 24))
-
+        | Illumination i -> Rank(1 + (i / 24))

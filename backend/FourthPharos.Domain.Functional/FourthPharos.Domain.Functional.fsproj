@@ -7,5 +7,9 @@
     <Compile Include="Domain.fs" />
     <Compile Include="Circle.fs" />
     <Compile Include="CircleOperations.fs" />
+    <Compile Include="test.fsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Validus" Version="4.1.3" />
   </ItemGroup>
 </Project>
