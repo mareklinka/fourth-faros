@@ -87,7 +87,7 @@ module CircleOperations =
     }
 
   let consumeResource: resourceOperation = modifyResource -1
-  let restoreResource: resourceOperation = modifyResource 1
+  let recoverResource: resourceOperation = modifyResource 1
 
   let private modifyStamindDice amount circle =
     validate {

@@ -10,42 +10,67 @@ open FourthPharos.Domain.Functional.Domain
 open System
 open Validus
 
-let print c = c |> printfn "Circle %O"
+let printCircle = printfn "Circle %O"
 
 let (>=>) f1 f2 arg =
   match f1 arg with
   | Ok data -> f2 data
   | Error e -> Error e
 
+let (>>=) arg f1 =
+  match arg with
+  | Ok data -> f1 data
+  | Error e -> Error e
+
 let main () =
   validate {
     let! name = createString50 "test"
     and! location = createString200 "home"
-    let! gearName = createString50 "New Gear 1"
+    and! gearName = createString50 "New Gear 1"
     let gear = Gear gearName
 
     let circle = createCircle name location
 
-    circle |> print
+    circle |> printCircle
 
-    let! newCircle =
+    let today = DateOnly.FromDateTime(DateTime.Now)
+
+    let! newCircle1 =
       circle
-      |> (takeAbility AbilityType.StaminaTraining
-          >=> (addGear gear)
-          >=> (startAssignment (DateOnly.FromDateTime(DateTime.Now)))
-          >=> (finishAssignment)
-          >=> (removeGear gear)
-          >=> (addIllumination 31)
-          >=> (consumeResource Stitch)
-          >=> (consumeResource Stitch)
-          >=> (consumeResource Stitch)
-          >=> (restoreResource Stitch)
-          >=> (consumeStaminaDie)
-          >=> (consumeStaminaDie)
-          >=> (recoverStaminaDie)
-          >=> (takeAbility AbilityType.OneLastRun))
+      |> takeAbility AbilityType.StaminaTraining
+      >>= addGear gear
+      >>= startAssignment today
+      >>= finishAssignment
+      >>= removeGear gear
+      >>= addIllumination 31
+      >>= consumeResource Stitch
+      >>= consumeResource Stitch
+      >>= consumeResource Stitch
+      >>= recoverResource Stitch
+      >>= consumeStaminaDie
+      >>= consumeStaminaDie
+      >>= recoverStaminaDie
+      >>= takeAbility AbilityType.OneLastRun
 
-    newCircle |> print
+    newCircle1 |> printCircle
+
+    let! newCircle2 =
+      (takeAbility AbilityType.StaminaTraining
+        >=> addGear gear
+        >=> startAssignment today
+        >=> finishAssignment
+        >=> removeGear gear
+        >=> addIllumination 31
+        >=> consumeResource Stitch
+        >=> consumeResource Stitch
+        >=> consumeResource Stitch
+        >=> recoverResource Stitch
+        >=> consumeStaminaDie
+        >=> consumeStaminaDie
+        >=> recoverStaminaDie
+        >=> takeAbility AbilityType.OneLastRun) circle
+
+    newCircle2 |> printCircle
 
     return ()
   }
