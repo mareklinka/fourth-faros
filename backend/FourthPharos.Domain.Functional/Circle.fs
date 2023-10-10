@@ -1,96 +1,135 @@
 ﻿namespace FourthPharos.Domain.Functional
 
-open FourthPharos.Domain.Functional.Domain
 open System
+open FourthPharos.Domain.Functional.Domain
 open Validus
 open Validus.Operators
 
 module Circle =
-    type Illumination = private Illumination of int
-    type Rank = private Rank of int
-    type StaminaTrainingDice = StaminaDice of int
-    type Assignment = StartDate of DateTime
-    type Gear = Gear of String50
-    type ResourceType = Stitch | Train | Refresh
-    type Resource = private Resource of int
-    type Milestone =
-        | Zero
-        | One
-        | Two
-        | Three
+  type Illumination = private Illumination of int
+  type Rank = private Rank of int
+  type StaminaTrainingDice = private StaminaDice of int
+  type Assignment = StartDate of DateOnly
+  type Gear = Gear of String50
 
-    let (|Illumination|) =
-        function
-        | Illumination.Illumination i -> Illumination i
+  type ResourceType =
+    | Stitch
+    | Train
+    | Refresh
 
-    let (|Rank|) =
-        function
-        | Rank.Rank i -> Rank i
+  type AbilityType =
+    | StaminaTraining
+    | NobodyLeftBehind
+    | ForgedInFire
+    | Interdisciplinary
+    | ResourceManagement
+    | OneLastRun
 
-    let (|Resource|) =
-        function
-        | Resource.Resource i -> Resource i
+  type Resource = private Resource of int
 
-    let createIllumination =
-        fun i ->
-            i
-            |> (Check.Int.greaterThanOrEqualTo 0 *|* Illumination) (nameof (i))
+  type Milestone =
+    | Zero
+    | One
+    | Two
+    | Three
 
-    let createResource =
-        fun i ->
-            i
-            |> (Check.Int.between 0 3 *|* Resource) (nameof (i))
+  let (|Illumination|) =
+    function
+    | Illumination i -> Illumination i
 
-    type StaminaTraining = StaminaTraining of StaminaTrainingDice
-    type NobodyLeftBehind = NobodyLeftBehind
-    type ForgedInFire = ForgedInFire
-    type Interdisciplinary = Interdisciplinary
-    type ResourceManagement = ResourceManagement
-    type OneLastRun = OneLastRun
+  let (|Rank|) =
+    function
+    | Rank i -> Rank i
 
-    type AbilitySelection<'T> = { Ability: 'T; TakenAtRank: Rank }
+  let (|Resource|) =
+    function
+    | Resource i -> Resource i
 
-    type AbilityOption<'T> =
-        | Selected of AbilitySelection<'T>
-        | Unselected
+  let (|StaminaDice|) =
+    function
+    | StaminaDice i -> StaminaDice i
 
-    type Abilities =
-        { StaminaTraining: AbilityOption<StaminaTraining>
-          NobodyLeftBehind: AbilityOption<NobodyLeftBehind>
-          ForgedInFire: AbilityOption<ForgedInFire>
-          Interdisciplinary: AbilityOption<Interdisciplinary>
-          ResourceManagement: AbilityOption<ResourceManagement>
-          OneLastRun: AbilityOption<OneLastRun> }
+  let createIllumination =
+    fun illumination ->
+      illumination
+      |> (Check.Int.greaterThanOrEqualTo 0 *|* Illumination) (nameof (illumination))
 
-    type Circle =
-        { Name: String50
-          Location: String200
-          Illumination: Illumination
-          Abilities: Abilities
-          Assignment: Assignment option
-          Gear: Gear list
-          Stitch: Resource
-          Refresh: Resource
-          Train: Resource }
+  let createResource =
+    fun resource -> resource |> (Check.Int.between 0 3 *|* Resource) (nameof (resource))
 
-    let milestone c =
-        match c.Illumination with
-        | Illumination i when (i % 24) < 7 -> Zero
-        | Illumination i when (i % 24) < 14 -> One
-        | Illumination i when (i % 24) < 21 -> Two
-        | _ -> Three
+  let createStaminaDice =
+    fun staminaDice -> staminaDice |> (Check.Int.between 0 3 *|* StaminaDice) (nameof (staminaDice))
 
-    let rank c =
-        match c.Illumination with
-        | Illumination i -> Rank(1 + (i / 24))
+  let createRank =
+    fun rank -> rank |> (Check.Int.between 0 3 *|* Rank) (nameof (rank))
 
-    type setName = String50 -> Circle -> Circle
-    type setLocation = String200 -> Circle -> Circle
-    type milestone = Circle -> Milestone
-    type addIllumination = int -> Circle -> Result<Circle, ValidationErrors>
-    type startAssignment = DateTime -> Circle -> Result<Circle, ValidationErrors>
-    type finishAssignment = Circle -> Result<Circle, ValidationErrors>
-    type gearOperation = Gear -> Circle -> Result<Circle, ValidationErrors>
-    type resourceOperation = ResourceType -> Circle -> Result<Circle, ValidationErrors>
-    type staminaDiceOperation = Circle -> Result<Circle, ValidationErrors>
+  type StaminaTraining = StaminaTraining of StaminaTrainingDice
+  type NobodyLeftBehind = NobodyLeftBehind
+  type ForgedInFire = ForgedInFire
+  type Interdisciplinary = Interdisciplinary
+  type ResourceManagement = ResourceManagement
+  type OneLastRun = OneLastRun
 
+  type AbilitySelection<'T> = { Ability: 'T; TakenAtRank: Rank }
+
+  type AbilityOption<'T> =
+    | Selected of AbilitySelection<'T>
+    | Unselected
+
+  type Abilities =
+    { StaminaTraining: AbilityOption<StaminaTraining>
+      NobodyLeftBehind: AbilityOption<NobodyLeftBehind>
+      ForgedInFire: AbilityOption<ForgedInFire>
+      Interdisciplinary: AbilityOption<Interdisciplinary>
+      ResourceManagement: AbilityOption<ResourceManagement>
+      OneLastRun: AbilityOption<OneLastRun> }
+
+  type Circle =
+    { Name: String50
+      Location: String200
+      Illumination: Illumination
+      Abilities: Abilities
+      Assignment: Assignment option
+      Gear: Gear list
+      Stitch: Resource
+      Refresh: Resource
+      Train: Resource }
+
+  let milestone c =
+    match c.Illumination with
+    | Illumination i when (i % 24) < 7 -> Zero
+    | Illumination i when (i % 24) < 14 -> One
+    | Illumination i when (i % 24) < 21 -> Two
+    | _ -> Three
+
+  let rank c =
+    match c.Illumination with
+    | Illumination i -> Rank(1 + (i / 24))
+
+  type setName = String50 -> Circle -> Circle
+  type setLocation = String200 -> Circle -> Circle
+  type milestone = Circle -> Milestone
+  type addIllumination = int -> Circle -> Result<Circle, ValidationErrors>
+  type startAssignment = DateOnly -> Circle -> Result<Circle, ValidationErrors>
+  type finishAssignment = Circle -> Result<Circle, ValidationErrors>
+  type gearOperation = Gear -> Circle -> Result<Circle, ValidationErrors>
+  type resourceOperation = ResourceType -> Circle -> Result<Circle, ValidationErrors>
+  type staminaDiceOperation = Circle -> Result<Circle, ValidationErrors>
+  type abilityOperation = AbilityType -> Circle -> Result<Circle, ValidationErrors>
+
+  let createCircle name location =
+    { Name = name
+      Location = location
+      Illumination = Illumination 0
+      Abilities =
+        { StaminaTraining = Unselected
+          ForgedInFire = Unselected
+          NobodyLeftBehind = Unselected
+          Interdisciplinary = Unselected
+          ResourceManagement = Unselected
+          OneLastRun = Unselected }
+      Assignment = None
+      Gear = List.empty
+      Stitch = Resource 3
+      Train = Resource 3
+      Refresh = Resource 3 }
