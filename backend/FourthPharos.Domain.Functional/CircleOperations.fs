@@ -78,3 +78,21 @@ module CircleOperations =
 
     let consumeResource: resourceOperation = modifyResource -1
     let restoreResource: resourceOperation = modifyResource 1
+
+    let private modifyStamindDice amount c =
+        validate {
+            let! newStamina =
+                match c.Abilities.StaminaTraining with
+                | Selected ({ Ability = StaminaTraining (StaminaDice d)
+                              TakenAtRank = r }) ->
+                    Ok(
+                        Selected(
+                            { Ability = StaminaTraining(StaminaDice(d + amount))
+                              TakenAtRank = r }
+                        )
+                    )
+                    // todo error message + add createStaminaDice validating factory
+                | _ -> Error(ValidationErrors.create (nameof (StaminaTraining)) ["Circle doesn't have "])
+
+            return { c with Abilities = { c.Abilities with StaminaTraining = newStamina } }
+        }
