@@ -3,12 +3,14 @@
 #load "Domain.fs"
 #load "Circle.fs"
 #load "CircleOperations.fs"
+#load "Test.fs"
 
 open FourthPharos.Domain.Functional.Circle
 open FourthPharos.Domain.Functional.CircleOperations
 open FourthPharos.Domain.Functional.Domain
 open System
 open Validus
+open FourthPharos.Domain.Functional
 
 let printCircle = printfn "Circle %O"
 
@@ -71,6 +73,15 @@ let main () =
         >=> takeAbility AbilityType.OneLastRun) circle
 
     newCircle2 |> printCircle
+
+    let fero = Test.create "Recursive circle"
+    fero |> printfn "%O"
+
+    match fero.Chars.Head.Circle with
+    | None -> ()
+    | Some c ->
+      c |> printfn "%O"
+      Object.ReferenceEquals (fero, c) |> printfn "Are the two reference-equal? %O"
 
     return ()
   }
