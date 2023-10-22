@@ -1,16 +1,18 @@
 #r "nuget: Validus"
 
 #load "Domain.fs"
+#load "GenericCircle.fs"
+#load "Character.fs"
 #load "Circle.fs"
 #load "CircleOperations.fs"
-#load "Test.fs"
 
+open FourthPharos.Domain.Functional.GenericCircle
+open FourthPharos.Domain.Functional.Character
 open FourthPharos.Domain.Functional.Circle
 open FourthPharos.Domain.Functional.CircleOperations
 open FourthPharos.Domain.Functional.Domain
 open System
 open Validus
-open FourthPharos.Domain.Functional
 
 let printCircle = printfn "Circle %O"
 
@@ -31,7 +33,7 @@ let main () =
     and! gearName = createString50 "New Gear 1"
     let gear = Gear gearName
 
-    let circle = createCircle name location
+    let circle = createCircle name location []
 
     circle |> printCircle
 
@@ -74,14 +76,18 @@ let main () =
 
     newCircle2 |> printCircle
 
-    let fero = Test.create "Recursive circle"
+    let! characterName = createString50 "Fero"
+
+    let fero = createCharacter characterName
     fero |> printfn "%O"
 
-    match fero.Chars.Head.Circle with
+    let ferosCircle = createCircle name location [fero]
+
+    match ferosCircle.Characters.Head.Circle with
     | None -> ()
     | Some c ->
       c |> printfn "%O"
-      Object.ReferenceEquals (fero, c) |> printfn "Are the two reference-equal? %O"
+      Object.ReferenceEquals (ferosCircle, c) |> printfn "Are the two reference-equal? %O"
 
     return ()
   }

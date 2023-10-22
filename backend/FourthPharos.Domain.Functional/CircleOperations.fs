@@ -1,6 +1,7 @@
 namespace FourthPharos.Domain.Functional
 
 open Circle
+open GenericCircle
 open Validus
 
 module CircleOperations =
