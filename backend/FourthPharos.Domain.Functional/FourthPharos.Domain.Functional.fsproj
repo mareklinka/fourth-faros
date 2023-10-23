@@ -9,6 +9,7 @@
     <Compile Include="Character.fs" />
     <Compile Include="Circle.fs" />
     <Compile Include="CircleOperations.fs" />
+    <Compile Include="CharacterOperations.fs" />
     <Compile Include="test.fsx" />
   </ItemGroup>
   <ItemGroup>

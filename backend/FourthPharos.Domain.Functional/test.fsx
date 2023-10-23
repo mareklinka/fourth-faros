@@ -5,6 +5,7 @@
 #load "Character.fs"
 #load "Circle.fs"
 #load "CircleOperations.fs"
+#load "CharacterOperations.fs"
 
 open FourthPharos.Domain.Functional.GenericCircle
 open FourthPharos.Domain.Functional.Character
@@ -13,6 +14,7 @@ open FourthPharos.Domain.Functional.CircleOperations
 open FourthPharos.Domain.Functional.Domain
 open System
 open Validus
+open FourthPharos.Domain.Functional
 
 let printCircle = printfn "Circle %O"
 
@@ -76,26 +78,50 @@ let main () =
 
     newCircle2 |> printCircle
 
-    let! characterName = createString50 "Fero"
+    // -------- character tests
 
-    let fero = createCharacter characterName
-    fero |> printfn "%O"
+    // create two characters
+    let! feroName = createString50 "Fero"
+    let! jozoName = createString50 "Jozo"
 
-    let ferosCircle = createCircle name location [fero]
+    let fero = createCharacter feroName
+    let jozo = createCharacter jozoName
 
-    match ferosCircle.Characters.Head.Circle with
-    | None -> ()
-    | Some c ->
-      c |> printfn "%O"
-      Object.ReferenceEquals (ferosCircle, c) |> printfn "Are the two reference-equal? %O"
+    // add characters to circle
+    let circle = createCircle name location [fero; jozo]
+    circle |> printCircle
 
-    let! ferosNewCircle = ferosCircle |> takeAbility AbilityType.StaminaTraining
+    // verify that both characters reference the same circle
+    match (circle.Characters.Head.Circle, circle.Characters.Tail.Head.Circle) with
+    | Some c1, Some c2 ->
+      (Object.ReferenceEquals(circle, c1) && Object.ReferenceEquals(circle, c2))
+      |> printfn "Same circle for Fero and Jozo: %O"
+    | _ -> printfn "Nope"
 
-    match ferosNewCircle.Characters.Head.Circle with
-    | None -> ()
-    | Some c ->
-      c |> printfn "%O"
-      Object.ReferenceEquals (ferosNewCircle, c) |> printfn "Are the two reference-equal? %O"
+    // update one character's name
+    let! newName = createString50 "Ferislav"
+    let newFero = circle.Characters.Head |> CharacterOperations.setName newName
+
+    // verify that both characters still reference the same circle
+    let circle = newFero.Circle.Value
+    circle |> printCircle
+
+    match (circle.Characters.Head.Circle, circle.Characters.Tail.Head.Circle) with
+    | Some c1, Some c2 ->
+      (Object.ReferenceEquals(circle, c1) && Object.ReferenceEquals(circle, c2))
+      |> printfn "Same circle for Fero and Jozo 2: %O"
+    | _ -> printfn "Nope"
+
+    // update the circle's name
+    let! circle = circle |> takeAbility AbilityType.OneLastRun
+    circle |> printCircle
+
+    // verify that both characters still reference the same circle
+    match (circle.Characters.Head.Circle, circle.Characters.Tail.Head.Circle) with
+    | Some c1, Some c2 ->
+      (Object.ReferenceEquals(circle, c1) && Object.ReferenceEquals(circle, c2))
+      |> printfn "Same circle for Fero and Jozo 3: %O"
+    | _ -> printfn "Nope"
 
     return ()
   }
