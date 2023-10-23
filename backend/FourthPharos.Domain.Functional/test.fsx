@@ -89,5 +89,13 @@ let main () =
       c |> printfn "%O"
       Object.ReferenceEquals (ferosCircle, c) |> printfn "Are the two reference-equal? %O"
 
+    let! ferosNewCircle = ferosCircle |> takeAbility AbilityType.StaminaTraining
+
+    match ferosNewCircle.Characters.Head.Circle with
+    | None -> ()
+    | Some c ->
+      c |> printfn "%O"
+      Object.ReferenceEquals (ferosNewCircle, c) |> printfn "Are the two reference-equal? %O"
+
     return ()
   }
