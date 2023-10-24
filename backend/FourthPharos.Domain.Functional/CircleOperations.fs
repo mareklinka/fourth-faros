@@ -8,6 +8,7 @@ open Validus
 module CircleOperations =
   let private updateCharacters (c: Circle) =
     let setCircle circle char = { char with Circle = Some circle }
+
     let rec circle =
       { Name = c.Name
         Location = c.Location
@@ -19,12 +20,14 @@ module CircleOperations =
         Train = c.Train
         Refresh = c.Refresh
         Characters = charactersWithCircle }
+
     and charactersWithCircle = c.Characters |> List.map (setCircle circle)
     circle
 
-  let setName : setName = fun n c -> { c with Name = n } |> updateCharacters
+  let setName: setName = fun n c -> { c with Name = n } |> updateCharacters
 
-  let setLocation: setLocation = fun l c -> { c with Location = l } |> updateCharacters
+  let setLocation: setLocation =
+    fun l c -> { c with Location = l } |> updateCharacters
 
   let addIllumination: addIllumination =
     fun illumination circle ->
@@ -35,7 +38,8 @@ module CircleOperations =
 
         return
           { circle with
-              Illumination = newIlluminationValue } |> updateCharacters
+              Illumination = newIlluminationValue }
+          |> updateCharacters
       }
 
   let startAssignment: startAssignment =
@@ -44,7 +48,8 @@ module CircleOperations =
       |> Check.WithMessage.Option.isNone (fun _ -> "Circle has an active assignment") (nameof (circle.Assignment))
       |> Result.map (fun _ ->
         { circle with
-            Assignment = Some(StartDate startDate) } |> updateCharacters)
+            Assignment = Some(StartDate startDate) }
+        |> updateCharacters)
 
   let finishAssignment: finishAssignment =
     fun circle ->
@@ -64,7 +69,8 @@ module CircleOperations =
 
         return
           { circle with
-              Gear = gear :: circle.Gear } |> updateCharacters
+              Gear = gear :: circle.Gear }
+          |> updateCharacters
       }
 
   let removeGear: gearOperation =
@@ -80,7 +86,8 @@ module CircleOperations =
 
         return
           { circle with
-              Gear = circle.Gear |> List.removeAt index } |> updateCharacters
+              Gear = circle.Gear |> List.removeAt index }
+          |> updateCharacters
       }
 
   let private modifyResource amount resource circle =
@@ -135,7 +142,8 @@ module CircleOperations =
         { circle with
             Abilities =
               { circle.Abilities with
-                  StaminaTraining = newStamina } } |> updateCharacters
+                  StaminaTraining = newStamina } }
+        |> updateCharacters
     }
 
   let consumeStaminaDie: staminaDiceOperation = modifyStamindDice -1
@@ -151,7 +159,8 @@ module CircleOperations =
 
       return
         { circle with
-            Abilities = circle |> factory } |> updateCharacters
+            Abilities = circle |> factory }
+        |> updateCharacters
     }
 
   let private unsetAbility ability factory circle : Result<Circle, ValidationErrors> =
@@ -164,7 +173,8 @@ module CircleOperations =
 
       return
         { circle with
-            Abilities = circle |> factory } |> updateCharacters
+            Abilities = circle |> factory }
+        |> updateCharacters
     }
 
   let takeAbility: abilityOperation =
@@ -294,3 +304,17 @@ module CircleOperations =
 
         return! circle |> unsetOperation
       }
+
+  let addCharacter character circle =
+    { circle with
+        Characters = circle.Characters |> List.append [ character ] }
+    |> updateCharacters
+
+  let removeCharacter character circle =
+    let index =
+      circle.Characters
+      |> List.findIndex (fun c -> System.Object.ReferenceEquals(c, character))
+
+    { circle with
+        Characters = circle.Characters |> List.removeAt index }
+    |> updateCharacters

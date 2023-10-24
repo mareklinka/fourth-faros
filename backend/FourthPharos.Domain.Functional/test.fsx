@@ -123,5 +123,39 @@ let main () =
       |> printfn "Same circle for Fero and Jozo 3: %O"
     | _ -> printfn "Nope"
 
+    // test character add/remove
+    let circle = createCircle name location []
+
+    let! feroName = createString50 "fero"
+    let fero = createCharacter feroName
+    let circleWithFero = circle |> addCharacter fero
+
+    circleWithFero |> printCircle
+    match (circleWithFero.Characters.Head.Circle) with
+    | Some c ->
+      Object.ReferenceEquals(circleWithFero, c)
+      |> printfn "Same circle after adding fero: %O"
+    | _ -> printfn "Nope"
+
+    let! jozoName = createString50 "jozo"
+    let jozo = createCharacter jozoName
+    let circleWithJozo = circleWithFero |> addCharacter jozo
+
+    circleWithJozo |> printCircle
+    match (circleWithJozo.Characters.Head.Circle, circleWithJozo.Characters.Tail.Head.Circle) with
+    | Some c1, Some c2 ->
+      (Object.ReferenceEquals(circleWithJozo, c1) && Object.ReferenceEquals(circleWithJozo, c2))
+      |> printfn "Same circle after adding jozo: %O"
+    | _ -> printfn "Nope"
+
+    let circleWithoutJozo = circleWithJozo |> removeCharacter circleWithJozo.Characters.Head
+    circleWithoutJozo |> printCircle
+
+    match (circleWithoutJozo.Characters.Head.Circle) with
+    | Some c ->
+      Object.ReferenceEquals(circleWithoutJozo, c)
+      |> printfn "Same circle after removing jozo: %O"
+    | _ -> printfn "Nope"
+
     return ()
   }
